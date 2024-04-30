@@ -1,0 +1,39 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}List of Offers{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center; font-size: 24px; margin-bottom: 20px; font-family: 'Aladin', cursive;">Liste des offres</h1>
+
+    <div class="row">
+        {% for offre in offres %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                <img src="{{ asset('uploadsProduit/' ~ offre.idPlat.image) }}" class="card-img-top" >
+                    <div class="card-body">
+                        <h5 class="card-title">{{ offre.idPlat.nom }}</h5>
+                        <p class="card-text">Date de début: {{ offre.dateDebut|date('Y-m-d') }}</p>
+                        <p class="card-text">Date de fin: {{ offre.dateFin|date('Y-m-d') }}</p>
+                        <p class="card-text">Prix: {{ offre.newPrice }} dt</p>
+                        <p class="cart-text">Remise: {{offre.pourcentage}}%</p>
+                        <img src="{{ offre.idPlat.qrCode }}" width="123" height="100" />
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {{ knp_pagination_render(offres) }}
+    <style>
+    .card {
+    height: 500px; /* Set a fixed height for the card */
+    margin-bottom: 20px; /* Add some margin at the bottom for spacing */
+}
+
+.card-img-top {
+    height: 150px; /* Set a fixed height for the image */
+    object-fit: cover; /* Ensure the image covers the entire space */
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'template.html.twig'%}
+
+{% block title %}Edit Category{% endblock %}
+
+
+{% block body %}
+    <h2>Edit Category</h2>
+    {{ form_start(formCategorie) }}
+    {{ form_label(formCategorie) }}
+        {{ form_widget(formCategorie) }}
+        <button class="btn btn-primary" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4)";>Save</button>
+    {{ form_end(formCategorie) }}
+{% endblock %}

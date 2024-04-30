@@ -1,0 +1,84 @@
+{% extends 'template.html.twig'%}
+{% block title %}Offer Index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3" style="font-family: 'Aladin', cursive;">Vos Offres</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('offre_add') }} "style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4); color: white; font-family: 'Aladin', cursive;"> 
+                    Créer Un Offre
+                </a>
+                <a class="btn btn-outline-primary" href="{{ path('delete_expired_offers') }} "style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4); color: white; font-family: 'Aladin', cursive;"> 
+                    Supprimer l'offre expiré
+                </a>
+            </div>
+            <div class="input-group mt-3 mb-3">
+    <form action="#" method="GET" class="input-group mt-3 mb-3">
+    <input type="text" id="searchInput" class="form-control" placeholder="Recherche Par Nom et Pourcentage">
+    </form>
+    <div id="searchResults"></div>
+    </div>
+    <div class="btn-group" role="group" aria-label="Sort">
+    <a href="{{ path('offre_tri', {'tri': 'percentage_asc'}) }}" class="btn btn-secondary">Pourcentage  <i class="fas fa-arrow-up"></i></a>
+    <a href="{{ path('offre_tri', {'tri': 'percentage_desc'}) }}" class="btn btn-secondary">Pourcentage  <i class="fas fa-arrow-down"></i></a>
+    <a href="{{ path('offre_tri', {'tri': 'date_asc'}) }}" class="btn btn-secondary">Date <i class="fas fa-arrow-up"></i></a>
+    <a href="{{ path('offre_tri', {'tri': 'date_desc'}) }}" class="btn btn-secondary">Date <i class="fas fa-arrow-down"></i></a>
+    </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Plat</th>
+                        <th>Pourcentage</th>
+                        <th>Date de Debut</th>
+                        <th>Date de fin</th>
+                        <th>Nouveau Prix</th>
+                        
+                        <th width="240px">Action</th>
+                    </tr>
+                    {% for offre in offres %}
+                        <tr>
+                            <td>{{ offre.idPlat.nom }}</td>
+                            <td>{{ offre.pourcentage }}</td>
+                            <td>{{ offre.dateDebut|date('d M Y') }}</td>
+                            <td>{{ offre.dateFin|date('d M Y') }}</td>
+                            <td>{{ offre.newPrice }}</td>
+                            <td>
+                                <a href="{{ path('offre_edit', {'id': offre.id}) }}" class="btn btn-primary" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4);">Modifier</a>
+                                <a href="{{ path('offre_delete', {'id': offre.id}) }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this offer?')">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Function to filter offers based on the input value
+function filterOffers() {
+    var query = $('#searchInput').val().toLowerCase();
+
+    $('table tbody tr').each(function() {
+        var platName = $(this).find('td:first-child').text().toLowerCase();
+        var percentage = $(this).find('td:nth-child(2)').text().toLowerCase();
+        if (platName.includes(query) || percentage.includes(query)) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+}
+
+// Debounce the filtering function
+var debouncedFilterOffers = debounce(filterOffers, 300);
+
+// Listen for changes in the input field and trigger the debounced filtering
+jQuery(document).ready(function () {
+    $('#searchInput').on('input', debouncedFilterOffers);
+});
+
+// Initial filter on page load
+filterOffers();
+
+</script>
+{% endblock %}

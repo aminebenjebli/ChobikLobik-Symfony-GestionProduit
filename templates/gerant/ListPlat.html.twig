@@ -1,0 +1,36 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}List of Dishes{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center; font-size: 24px; margin-bottom: 20px; font-family: 'Aladin', cursive;">List of Dishes</h1>
+
+    <div class="row">
+        {% for plat in prod %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img src="{{ asset('uploadsProduit/' ~ plat.image) }}" class="card-img-top" alt="{{ plat.nom }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ plat.nom }}</h5>
+                        <p class="card-text">{{ plat.description }}</p>
+                        <p class="card-text">Prix: {{ plat.prix }} dt</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {{ knp_pagination_render(prod) }}
+    <style>
+    .card {
+    height: 400px; /* Set a fixed height for the card */
+    margin-bottom: 20px; /* Add some margin at the bottom for spacing */
+}
+
+.card-img-top {
+    height: 250px; /* Set a fixed height for the image */
+    object-fit: cover; /* Ensure the image covers the entire space */
+}
+</style>
+
+{% endblock %}

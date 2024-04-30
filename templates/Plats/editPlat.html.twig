@@ -1,0 +1,10 @@
+{% extends 'template.html.twig'%}
+{% block title %}Edit Plat{% endblock %}
+
+{% block body %}
+    <h2 class="text-center mt-5 mb-3" style="font-family: Georgia, serif;">Edit Dishes</h2>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}} ) }}
+    {{ include('Plats/_form.html.twig') }}
+    <button type="submit" class="btn btn-primary" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4)";>Save Changes</button>
+    {{ form_end(form) }}
+{% endblock %}
