@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+plat_edit:
+    path: /plat/{id}/edit
+    controller: App\Controller\PlatController::edit

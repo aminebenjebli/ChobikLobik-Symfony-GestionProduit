@@ -1,0 +1,84 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Category Index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3" style="font-family: 'Aladin', cursive;">List of Categories</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('CategorieAdd') }}" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4) ;color: white; font-family: 'Aladin', cursive; ">
+                    Créer une nouvelle catégorie
+                </a>
+            </div>
+            <div class="input-group">
+              <form action="#" method="GET" class="input-group mt-3 mb-3">
+    <input type="text" id="searchInput" class="form-control" placeholder="Search by name">
+</form>
+
+<div id="searchResults"></div>
+            </div>
+            <div class="btn-group" role="group" aria-label="Sort">
+    <a href="{{ path('categorie_tri', {'tri': 'alphabetic_asc'}) }}" class="btn btn-secondary">Nom <i class="fas fa-arrow-up"></i></a>
+    <a href="{{ path('categorie_tri', {'tri': 'alphabetic_desc'}) }}" class="btn btn-secondary">Nom  <i class="fas fa-arrow-down"></i></a>
+</div>
+
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Nom</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.type }}</td>
+                            <td>
+                                <a href="{{ path('CategorieEdit', {'id': category.id}) }}" class="btn btn-primary" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4);">Modifier</a>
+                                <a href="{{ path('CategorieDelete', {'id': category.id}) }}" class="btn btn-danger" onclick="return confirm('Vous etes sur de supprimer cette categorie?')">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+    // Function to filter categories based on the input value
+function filterCategories() {
+    var query = $('#searchInput').val().toLowerCase();
+
+    $('table tbody tr').each(function() {
+        var name = $(this).find('td:first-child').text().toLowerCase();
+        if (name.includes(query)) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
+    });
+}
+
+// Debounce function to delay execution of filterCategories
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+
+// Listen for changes in the input field and trigger the filtering
+jQuery(document).ready(function () {
+    $('#searchInput').on('input', debounce(filterCategories, 300));
+});
+
+</script>
+
+
+{% endblock %}

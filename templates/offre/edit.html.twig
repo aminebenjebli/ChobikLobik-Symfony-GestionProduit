@@ -1,0 +1,44 @@
+{% extends 'template.html.twig'%}
+{% block title %}Edit Offer{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Edit Offer</h2>
+           <form method="post">
+        {{ form_start(form) }}
+        {{ form_label(form.pourcentage, 'Percentage') }}
+        {{ form_widget(form.pourcentage, {'attr': {'class': 'form-control'}}) }}
+         {% if form_errors(form.pourcentage) %}
+        <div class="alert alert-danger">{{ form_errors(form.pourcentage) }}</div>
+    {% endif %}
+        <br>
+        {{ form_label(form.dateDebut, 'Start Date') }}
+       {{ form_widget(form.dateDebut,{'attr': {'class': 'form-control'}}) }}
+        {% if form_errors(form.dateDebut) %}
+        <div class="alert alert-danger">{{ form_errors(form.dateDebut) }}</div>
+    {% endif %}
+        <br>
+        {{ form_label(form.dateFin, 'End Date') }}
+        {{ form_widget(form.dateFin,{'attr': {'class': 'form-control'}}) }}
+        {% if form_errors(form.dateFin) %}
+        <div class="alert alert-danger">{{ form_errors(form.dateFin) }}</div>
+    {% endif %}
+        <br>
+        {{ form_label(form.newPrice, 'New Price') }}
+        {{ form_widget(form.newPrice, {'attr': {'class': 'form-control'}}) }}
+        <div class="form-group">
+    {{ form_label(form.idPlat, 'Plat') }}
+    {{ form_errors(form.idPlat) }}
+    {{ form_widget(form.idPlat, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.idResto, 'Restaurant') }}
+    {{ form_errors(form.idResto) }}
+    {{ form_widget(form.idResto, {'attr': {'class': 'form-control'}}) }}
+</div>
+            <div class="form-group text-center" style="font-family: Georgia, serif;">
+                <button type="submit" class="btn btn-primary" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4);" >Save</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

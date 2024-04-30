@@ -1,0 +1,17 @@
+{% extends 'template.html.twig'%}
+
+
+{% block title %} Ajouter un plat {% endblock %}
+
+{% block body %}
+
+<h2 class="text-center mt-5 mb-3" style="font-family: Georgia, serif;">Add Dishes</h2>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}} ) }}
+
+    {{ include('Plats/_form.html.twig') }}
+    <button class="btn btn-primary" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4)";>
+        Ajouter
+    </button>
+    {{ form_end(form) }}
+{% endblock %}

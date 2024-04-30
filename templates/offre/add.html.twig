@@ -1,0 +1,74 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Add Offer{% endblock %}
+
+{% block body %}
+ 
+    <h2 class="text-center mt-5 mb-3" style="font-family: Georgia, serif;">Add Offer</h2>
+
+    {% if form_errors(form)|length > 0 %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in form_errors(form) %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {{ form_start(form) }}
+        {{ form_label(form.pourcentage, 'Percentage') }}
+        {{ form_widget(form.pourcentage, {'attr': {'class': 'form-control'}}) }}
+         {% if form_errors(form.pourcentage) %}
+        <div class="alert alert-danger">{{ form_errors(form.pourcentage) }}</div>
+    {% endif %}
+        <br>
+        {{ form_label(form.dateDebut, 'Start Date') }}
+        {{ form_widget(form.dateDebut,{'attr': {'class': 'form-control'}}) }}
+        {% if form_errors(form.dateDebut) %}
+    {% endif %}
+        <br>
+        {{ form_label(form.dateFin, 'End Date') }}
+        {{ form_widget(form.dateFin,{'attr': {'class': 'form-control'}}) }}
+        {% if form_errors(form.dateFin) %}
+{% endif %}
+        <br>
+        {{ form_label(form.newPrice, 'New Price') }}
+        {{ form_widget(form.newPrice, {'attr': {'class': 'form-control'}}) }}
+        <div class="form-group">
+    {{ form_label(form.idPlat, 'Plat') }}
+    {{ form_errors(form.idPlat) }}
+    {{ form_widget(form.idPlat, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group">
+    {{ form_label(form.idResto, 'Restaurant') }}
+    {{ form_errors(form.idResto) }}
+    {{ form_widget(form.idResto, {'attr': {'class': 'form-control'}}) }}
+</div>
+        <button class="btn btn-primary" style="background-color: #2C8CBC; background-image: linear-gradient(to bottom right, #4DA1CB, #4399C4)";>
+        Submit
+        </button>
+        {{ form_end(form) }}
+    </form>
+    <script>
+        document.getElementById('percentage').addEventListener('input', function() {
+            calculateNewPrice();
+        });
+
+        document.getElementById('selected_plat').addEventListener('change', function() {
+            calculateNewPrice();
+        });
+
+function calculateNewPrice() {
+    var percentage = parseFloat(document.getElementById('percentage').value);
+    var price = parseFloat(document.getElementById('selected_plat').value);
+
+    if (!isNaN(percentage) && !isNaN(price)) {
+        var reduction = (price * percentage) / 100;
+        var newPrice = price - reduction;
+        document.getElementById('new_price').value = newPrice.toFixed(2);
+    }
+}
+    </script>
+{% endblock %}

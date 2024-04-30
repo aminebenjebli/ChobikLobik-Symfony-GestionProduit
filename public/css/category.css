@@ -1,0 +1,44 @@
+/* category.css */
+
+/* Style form header */
+.module-head {
+    background-color: #123c69;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style form label */
+label {
+    font-weight: bold;
+}
+
+/* Style form input */
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #dddddd;
+}
+
+/* Style form button */
+.btn-primary {
+    background-color: #0c1156;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* Hover effect for form button */
+.btn-primary:hover {
+    background-color: #03088b;
+}
+/* Style form image */
+.form-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100px;
+    max-height: 100px;
+    margin-bottom: 20px;}
