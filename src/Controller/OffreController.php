@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\OffreRepository;
-
+use App\Service\SmsGenerator;
 
 class OffreController extends AbstractController
 
@@ -27,7 +27,7 @@ public function index(): Response
     ]);
 }
 #[Route('/offre/add', name: 'offre_add')]
-public function add(Request $request): Response
+public function add(Request $request, SmsGenerator $smsGenerator): Response
 {
     $entityManager = $this->getDoctrine()->getManager();
     $plats = $entityManager->getRepository(Plat::class)->findAll();
@@ -43,12 +43,16 @@ public function add(Request $request): Response
 
         // Calculate and set the new price
         $percentage = $form->get('pourcentage')->getData();
-        $oldPrice = $plat->getPrix(); // Assuming 'price' is the property name for the price of a plat
-        $newPrice = $oldPrice * (1 + $percentage / 100);
+        $oldPrice = $plat->getPrix();
+        $newPrice = $oldPrice * ( $percentage / 100);
         $offre->setNewPrice($newPrice);
 
         $entityManager->persist($offre);
         $entityManager->flush();
+        // Send SMS notification
+        //$clientNumber = '+21654327348'; 
+        //$message = 'Dear client, a new offer has been added. Check it out now!'; 
+        //$smsGenerator->sendSms($clientNumber, 'Client', $message);
 
         $this->addFlash('success', 'Offer added successfully.');
 
