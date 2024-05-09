@@ -12,9 +12,9 @@ class SmsGenerator
     {
         
     
-        $accountSid = $_ENV['TWILIO_ACCOUNT_SID_O'];
-        $authToken = $_ENV['TWILIO_AUTH_TOKEN_O'];
-        $fromNumber = $_ENV['TWILIO_FROM_NUMBER_O'];
+        //$accountSid = $_ENV['TWILIO_ACCOUNT_SID_O'];
+        //$authToken = $_ENV['TWILIO_AUTH_TOKEN_O'];
+        //$fromNumber = $_ENV['TWILIO_FROM_NUMBER_O'];
         
         $toNumber = $number; // Le numéro de la personne qui reçoit le message
         $message = ''.$name.' Amine Ben Jebli'.' '.$text.''; //Contruction du sms
