@@ -50,9 +50,9 @@ public function add(Request $request, SmsGenerator $smsGenerator): Response
         $entityManager->persist($offre);
         $entityManager->flush();
         // Send SMS notification
-        //$clientNumber = '+21654327348'; 
-        //$message = 'Dear client, a new offer has been added. Check it out now!'; 
-        //$smsGenerator->sendSms($clientNumber, 'Client', $message);
+        $clientNumber = '+21654327348'; 
+        $message = 'Dear client, a new offer has been added. Check it out now!'; 
+        $smsGenerator->sendSms($clientNumber, 'Client', $message);
 
         $this->addFlash('success', 'Offer added successfully.');
 
